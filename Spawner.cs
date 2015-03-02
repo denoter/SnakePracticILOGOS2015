@@ -2,24 +2,40 @@
 using System.Collections;
 
 public class Spawner : MonoBehaviour {
-	public GameObject prefab;
-	//private bool foodEnable;
+	public GameObject food; // food prefab
+	public GameObject extraFood;
+
+	public Transform[] spawnPoints;
+
+
+	private int number;
+
+	void Update () 
+	{	
 	
-	// Update is called once per frame
-	void Update () {
+	
 		if (Food.foodEaten == true) 
 		{
 			SpawnFood();
-			Food.foodEaten = false;
-
-				
+			Food.foodEaten = false;		
 		}
-			
-
+		if (Food.extraFoodEaten == true && GameManager.size  % 8 == 0  && GameManager.size != 0 )
+		{
+			SpawnExtraFood();
+			Food.extraFoodEaten = false;
 		}
- public void SpawnFood()
+
+
+	}
+	public void SpawnFood()
 	{
-		//if (foodEnable == true) {
-		Instantiate(prefab, new Vector3( Random.Range(-14f, 12f), 1, Random.Range(-7.4f, 7.4f)), Quaternion.identity);
+	number = Random.Range (0, spawnPoints.Length - 1);
+		Instantiate(food, spawnPoints[number].position, Quaternion.identity);			
+	}
+	public void SpawnExtraFood() 
+	{
+
+		number = Random.Range (0, spawnPoints.Length - 1);
+		Instantiate(extraFood, spawnPoints[number].position, Quaternion.identity);
 	}
 }

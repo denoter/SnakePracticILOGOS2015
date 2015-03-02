@@ -5,6 +5,7 @@ public class Food : MonoBehaviour {
 	public int points = 10;
 
 	public static bool  foodEaten;
+	public static bool  extraFoodEaten = true;
 
 	public void Update()
 	{
@@ -13,11 +14,17 @@ public class Food : MonoBehaviour {
 
 	public void Eat() 
 	{
+
 		GameManager.points += points;
-		Destroy (gameObject);
-		foodEaten = true;
-
-
+		if (gameObject.tag == "Food") 
+		{
+			Destroy (gameObject);
+			foodEaten = true;
+		}
+		else /*if (gameObject.tag == "ExtraFood")*/{
+			Destroy (gameObject);
+			extraFoodEaten = true;
+		}
 	}
 
 }
